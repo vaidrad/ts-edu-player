@@ -1,0 +1,168 @@
+{
+    "accountCode": "5662516403001",
+    "playerCode": "0hVpNUYdY",
+    "slidesViewer": true,
+    "showSubSlides": false,
+    "subSlidesActive": false,
+    "chapters": [
+        {
+            "videoID": "6084658785001",
+            "slides": [
+                {
+                    "title": "Intro",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/se/Video%20on%20demand.jpg",
+                    "time": 0,
+                    "hidden": true
+                },
+                {
+                    "title": "About SMA",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_02.png",
+                    "time": 5
+                },
+                {
+                    "title": "SMA Phenotypes I, II, III a & b",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_03.png",
+                    "time": 80,
+                    "subSlides": [
+                        {
+                            "title": "SMA Phenotypes I, II, III a & b",
+                            "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_04.png",
+                            "time": 172
+                        },
+                        {
+                            "title": "SMA Phenotypes I, II, III a & b",
+                            "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_05.png",
+                            "time": 238
+                        }
+                    ]
+                },
+                {
+                    "title": "Incidence and prevalence",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_06.png",
+                    "time": 293
+                },
+                {
+                    "title": "Pathofysiology of the disease",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_07.png",
+                    "time": 368,
+                    "subSlides": [
+                        {
+                            "title": "Pathofysiology of the disease",
+                            "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_08.png",
+                            "time": 391
+                        },
+                        {
+                            "title": "Pathofysiology of the disease",
+                            "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_09.png",
+                            "time": 550
+                        }
+                    ]
+                },
+                {
+                    "title": "Early signs and symptoms SMA<br>type 1",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_10.png",
+                    "time": 673,
+                    "subSlides": [
+                        {
+                            "title": "Early signs and symptoms SMA<br>type 1",
+                            "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_11.png",
+                            "time": 768
+                        }
+                    ]
+                },
+                {
+                    "title": "Early signs and symptoms SMA<br>type 2",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_12.png",
+                    "time": 820
+                },
+                {
+                    "title": "Early signs and symptoms SMA<br>type 3",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_13.png",
+                    "time": 861
+                },
+                {
+                    "title": "Natural history of the disease",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_14.png",
+                    "time": 911
+                },
+                {
+                    "title": "Overview of current and future treatments",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_16.png",
+                    "time": 1040
+                },
+                {
+                    "title": "Nusinsersen MOA",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_17.png",
+                    "time": 1140
+                },
+                {
+                    "title": "Nusinersen clinical trial program – an overview",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_18.png",
+                    "time": 1241
+                },
+                {
+                    "title": "Nusinersen in early onset – pivotal trial",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_19.png",
+                    "time": 1337,
+                    "subSlides": [
+                        {
+                            "title": "Nusinersen in early onset – pivotal trial",
+                            "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_20.png",
+                            "time": 1354
+                        }
+                    ]
+                },
+                {
+                    "title": "Nusinersen in pre-symtomatic vs later initiation",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_21.png",
+                    "time": 1426
+                },
+                {
+                    "title": "Nusinersen in later onset – pivotal trial",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_22.png",
+                    "time": 1488,
+                    "subSlides": [
+                        {
+                            "title": "Nusinersen in later onset – pivotal trial",
+                            "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_23.png",
+                            "time": 1498
+                        }
+                    ]
+                },
+                {
+                    "title": "Nusinersen safety aspects",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_24.png",
+                    "time": 1554,
+                    "subSlides":[
+                        {
+                            "title": "Nusinersen safety aspects",
+                            "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_25.png",
+                            "time": 1587
+                        }
+                    ]
+                },
+                {
+                    "title": "Current reimbursement status in the Nordics",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_27.png",
+                    "time": 1637
+                },
+                {
+                    "title": "Clinical experience from prof Mar Tulinius practice",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_28.png",
+                    "time": 1683
+                },
+                {
+                    "title": "The multidisciplinary team approach",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/sma_nordics_webinar_slides/Slde%20deck%20Webinar_Page_29.png",
+                    "time": 1771
+                },
+                {
+                    "title": "Outro",
+                    "imageUrl": "https://storage.googleapis.com/intl_static_files/img/se/Video%20on%20demand.jpg",
+                    "time": 2010,
+                    "hidden": true
+                }
+            ]
+        }
+    ]
+}

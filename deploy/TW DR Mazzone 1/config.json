@@ -1,0 +1,299 @@
+{
+  "accountCode": "5662516403001",
+  "playerCode": "0hVpNUYdY",
+  "slidesViewer": true,
+  "showSubSlides": false,
+  "subSlidesActive": false,
+  "chapters": [
+    {
+      "videoID": "6157345720001",
+      "slides": [
+        {
+          "title": "Cover page",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_1.JPG",
+          "time": 0
+        },
+        {
+          "title": "Disclosures",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_2.JPG",
+          "time": 30
+        },
+        {
+          "title": "Plan",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_3.JPG",
+          "time": 60
+        },
+        {
+          "title": "Objectives of my talk",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_4.JPG",
+          "time": 124
+        },
+        {
+          "title": "SMA timeline",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_5.JPG",
+          "time": 158
+        },
+        {
+          "title": "SMA timeline",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_6.JPG",
+          "time": 174
+        },
+        {
+          "title": "SMA timeline",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_7.JPG",
+          "time": 180
+        },
+        {
+          "title": "SMA timeline",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_8.JPG",
+          "time": 193
+        },
+        {
+          "title": "SMA timeline",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_9.JPG",
+          "time": 198
+        },
+        {
+          "title": "SMA classification by age of onset",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_10.JPG",
+          "time": 222
+        },
+        {
+          "title": "SMA classification by age of symptom onset",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_11.JPG",
+          "time": 245
+        },
+        {
+          "title": "SMA Timeline",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_12.JPG",
+          "time": 327
+        },
+        {
+          "title": "SOC in SMA",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_13.JPG",
+          "time": 354
+        },
+        {
+          "title": "Topics included in the SOC guidelines",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_14.JPG",
+          "time": 390
+        },
+        {
+          "title": "Multidisciplinary approach",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_15.JPG",
+          "time": 420
+        },
+        {
+          "title": "AIMS of the SOC guidelines",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_16.JPG",
+          "time": 438
+        },
+        {
+          "title": "SMA classification by functional status",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_17.JPG",
+          "time": 494
+        },
+        {
+          "title": "Clinical signs and symptoms of SMA",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_18.JPG",
+          "time": 551
+        },
+        {
+          "title": "Physical therapy and rehabilitation",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_19.JPG",
+          "time": 650
+        },
+        {
+          "title": "Signs and symptoms",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_20.JPG",
+          "time": 660
+        },
+        {
+          "title": "SMA functional classification",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_21.JPG",
+          "time": 701
+        },
+        {
+          "title": "SMA functional classification",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_22.JPG",
+          "time": 748
+        },
+        {
+          "title": "SMA functional classification",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_23.JPG",
+          "time": 797
+        },
+        {
+          "title": "Common characteristics",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_24.JPG",
+          "time": 840
+        },
+        {
+          "title": "Broad phenotypic spectrum",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_25.JPG",
+          "time": 895
+        },
+        {
+          "title": "Evaluations",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_26.JPG",
+          "time": 956
+        },
+        {
+          "title": "NON-SITTERS assessments",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_27.JPG",
+          "time": 970
+        },
+        {
+          "title": "SMA Type I: CHOP INTEND",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_28.JPG",
+          "time": 990
+        },
+        {
+          "title": "SMA Type I: CHOP INTEND",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_29.JPG",
+          "time": 1013
+        },
+        {
+          "title": "SMA Type I: HINE-SESSION 2",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_30.JPG",
+          "time": 1025
+        },
+        {
+          "title": "SMA Type I: HINE-SESSION 2",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_31.JPG",
+          "time": 1064
+        },
+        {
+          "title": "SITTERS and WALKERS assessments",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_32.JPG",
+          "time": 1076
+        },
+        {
+          "title": "SITTERS assessments",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_33.JPG",
+          "time": 1123
+        },
+        {
+          "title": "SMA Type II-III: HFMSE",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_34.JPG",
+          "time": 1152
+        },
+        {
+          "title": "SMA Type II-III: RULM",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_35.JPG",
+          "time": 1173
+        },
+        {
+          "title": "SMA Type II-III: MFM",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_36.JPG",
+          "time": 1198
+        },
+        {
+          "title": "WALKERS assessments",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_37.JPG",
+          "time": 1219
+        },
+        {
+          "title": "SMA Type III: 6MWT",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_38.JPG",
+          "time": 1294
+        },
+        {
+          "title": "SMA Type III: Timed tests",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_39.JPG",
+          "time": 1310
+        },
+        {
+          "title": "SMA Type III: Timed tests",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_40.JPG",
+          "time": 1326
+        },
+        {
+          "title": "SMA Type III: Other assessments",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_41.JPG",
+          "time": 1346
+        },
+        {
+          "title": "Standardized outcome measures",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_42.JPG",
+          "time": 1358
+        },
+        {
+          "title": "Objectives by functional level",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_43.JPG",
+          "time": 1393
+        },
+        {
+          "title": "Physical therapy and rehabilitation",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_44.JPG",
+          "time": 1514
+        },
+        {
+          "title": "Physical therapy and rehabilitation",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_45.JPG",
+          "time": 1588
+        },
+        {
+          "title": "Physical therapy and rehabilitation",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_46.JPG",
+          "time": 1670
+        },
+        {
+          "title": "Orthopedic management",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_47.JPG",
+          "time": 1720
+        },
+        {
+          "title": "Management of spinal deformity",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_48.JPG",
+          "time": 1805
+        },
+        {
+          "title": "Orthopedic management (continued)",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_49.JPG",
+          "time": 1913
+        },
+        {
+          "title": "Nutrinional management, swallowing, GI dysfunction",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_50.JPG",
+          "time": 1997
+        },
+        {
+          "title": "Bone health",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_51.JPG",
+          "time": 2070
+        },
+        {
+          "title": "Pulmonary management",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_52.JPG",
+          "time": 2109
+        },
+        {
+          "title": "Acute care management",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_53.JPG",
+          "time": 2159
+        },
+        {
+          "title": "Other organ system involvement",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_54.JPG",
+          "time": 2217
+        },
+        {
+          "title": "Medication, supplements and immunizations",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_55.JPG",
+          "time": 2246
+        },
+        {
+          "title": "Ethical considerations and palliative care",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_56.JPG",
+          "time": 2310
+        },
+        {
+          "title": "Thank you",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/tw_mazzone/mazzone-1/slide_57.JPG",
+          "time": 2341
+        }
+      ]
+    }
+  ]
+}

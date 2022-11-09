@@ -1,0 +1,314 @@
+{
+  "accountCode": "5662516403001",
+  "playerCode": "0hVpNUYdY",
+  "slidesViewer": true,
+  "showSubSlides": false,
+  "subSlidesActive": false,
+  "chapters": [
+    {
+      "videoID": "6065602053001",
+      "slides": [
+        {
+          "title": "Introduction",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0001.jpg",
+          "time": 0
+        },
+        {
+          "title": "Presenter Disclosure",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0002.jpg",
+          "time": 4
+        },
+        {
+          "title": "Empirical, Stratified, and Personalized Medicine",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0003.jpg",
+          "time": 42
+        },
+        {
+          "title": "Definitions: Personalized vs. Precision Medicine",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0004.jpg",
+          "time": 65
+        },
+        {
+          "title": "What's the difference? Personalized vs. Precision Medicine",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0005.jpg",
+          "time": 103
+        },
+        {
+          "title": "Multiple Sclerosis",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0006.jpg",
+          "time": 158
+        },
+        {
+          "title": "Relapsing-Remitting Multiple Sclerosis (RRMS)",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0007.jpg",
+          "time": 163
+        },
+        {
+          "title": "Pathogenesis of MS",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0008.jpg",
+          "time": 221
+        },
+        {
+          "title": "DMT Targets",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0009.jpg",
+          "time": 263
+        },
+        {
+          "title": "Evolving Treatment and Management Landscape in MS",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0010.jpg",
+          "time": 280
+        },
+        {
+          "title": "Sequencing Strategies",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0011.jpg",
+          "time": 331
+        },
+        {
+          "title": "Early Intensive Treatment vs. Escalation",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0012.jpg",
+          "time": 385
+        },
+        {
+          "title": "DMT Switching Dynamics",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0013.jpg",
+          "time": 403
+        },
+        {
+          "title": "Multiple DMTs Over Lifetime",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0014.jpg",
+          "time": 418
+        },
+        {
+          "title": "MS Patient-Related Needs, Preferences, and Factors May Change",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0015.jpg",
+          "time": 428
+        },
+        {
+          "title": "Sequencing Treatment Decisions Should Be Personalized",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0016.jpg",
+          "time": 450
+        },
+        {
+          "title": "Disease Modifying MS Treatments",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0017.jpg",
+          "time": 471
+        },
+        {
+          "title": "DMT Mechanisms of Action",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0018.jpg",
+          "time": 472
+        },
+        {
+          "title": "DMT Mechanisms of Action",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0019.jpg",
+          "time": 507
+        },
+        {
+          "title": "DMT Mechanisms of Action",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0020.jpg",
+          "time": 559
+        },
+        {
+          "title": "Dimethyl Fumarate Known Mechanisms Of Action",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0021.jpg",
+          "time": 566
+        },
+        {
+          "title": "Dimethyl Fumarate Known Immunological Effects in RRMS Patients",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0022.jpg",
+          "time": 574
+        },
+        {
+          "title": "Dimethyl Fumarate PML Cases",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0023.jpg",
+          "time": 584
+        },
+        {
+          "title": "Absolute Lymphocyte Counts (ALC)",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0024.jpg",
+          "time": 586
+        },
+        {
+          "title": "DMT-Associated Lymphopenia",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0025.jpg",
+          "time": 589
+        },
+        {
+          "title": "Change In Absolute Lymphocyte Count Does Not Correlate With Disease Activity",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0026.jpg",
+          "time": 593
+        },
+        {
+          "title": "DMT-Related Subset Changes",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0027.jpg",
+          "time": 612
+        },
+        {
+          "title": "Rationale And Study Design",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0028.jpg",
+          "time": 670
+        },
+        {
+          "title": "Clinical Characteristics Of Recruited Patients",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0029.jpg",
+          "time": 724
+        },
+        {
+          "title": "Immunophenotyping RRMS Patients",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0030.jpg",
+          "time": 756
+        },
+        {
+          "title": "Results",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0031.jpg",
+          "time": 795
+        },
+        {
+          "title": "Results",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0032.jpg",
+          "time": 839
+        },
+        {
+          "title": "T-distributed Stochastic Neighbor Embedding (tSNE) Analysis",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0033.jpg",
+          "time": 914
+        },
+        {
+          "title": "SPADE Analysis",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0034.jpg",
+          "time": 992
+        },
+        {
+          "title": "CD3+ T Cells And Its Subtypes Are Significantly Affected By FTY And DMF Treatment",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0035.jpg",
+          "time": 1077
+        },
+        {
+          "title": "Memory T Cells",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0036.jpg",
+          "time": 1135
+        },
+        {
+          "title": "Lymphopenic DMF Patients Have More Naive T Cells And Less Effector Memory T Cells",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0037.jpg",
+          "time": 1202
+        },
+        {
+          "title": "Lymphopenic DMF Patients Have More Naive T Cells And Less Effector Memory T Cells",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0038.jpg",
+          "time": 1233
+        },
+        {
+          "title": "Frequency of T Helper Cells",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0039.jpg",
+          "time": 1301
+        },
+        {
+          "title": "DMF and FTY Treatment Change The Distribution of B Cell Subtypes",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0040.jpg",
+          "time": 1334
+        },
+        {
+          "title": "Distribution Of Other Mononuclear Cells",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0041.jpg",
+          "time": 1360
+        },
+        {
+          "title": "TCRgd",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0042.jpg",
+          "time": 1383
+        },
+        {
+          "title": "Treatment Response Prediction",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0043.jpg",
+          "time": 1428
+        },
+        {
+          "title": "Clinical Characteristics Of Recruited Patients For Longitudinal Analysis",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0044.jpg",
+          "time": 1441
+        },
+        {
+          "title": "DMF-Treated Patients With And Without Lymphopenia After 1 Year Of Treatment Showed Significant Decreases Over Time in PBMC But Not B And T Cells",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0045.jpg",
+          "time": 1467
+        },
+        {
+          "title": "B Cell Populations Do Not Significantly Change Over Time In DMF-N or DMF-L",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0046.jpg",
+          "time": 1491
+        },
+        {
+          "title": "Effector Memory Cells And Central Memory Cells",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0047.jpg",
+          "time": 1516
+        },
+        {
+          "title": "Role Of Immunosenescence On Cell Subsets",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0048.jpg",
+          "time": 1528
+        },
+        {
+          "title": "Results",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0049.jpg",
+          "time": 1570
+        },
+        {
+          "title": "Role Of Immunosenescence On Cell Subsets",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0050.jpg",
+          "time": 1616
+        },
+        {
+          "title": "PLS-DA For Separation Between DMF Treated Patients DMF-N And DMF-L",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0051.jpg",
+          "time": 1685
+        },
+        {
+          "title": "Influence Of Age, Sex And Previous Treatment",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0052.jpg",
+          "time": 1699
+        },
+        {
+          "title": "Conclusion",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0053.jpg",
+          "time": 1734
+        },
+        {
+          "title": "DMTs Have Different Duration of Immune Effects",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0054.jpg",
+          "time": 1748
+        },
+        {
+          "title": "Duration Of Immune Effects",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0055.jpg",
+          "time": 1760
+        },
+        {
+          "title": "Duration Of Immune Effects",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0056.jpg",
+          "time": 1778
+        },
+        {
+          "title": "Cell Depleters Dynamics Of Reconstitution",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0057.jpg",
+          "time": 1801
+        },
+        {
+          "title": "Immunological Considerations For Transitioning Between DMTs",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0058.jpg",
+          "time": 1841
+        },
+        {
+          "title": "Vaccine Effectiveness",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0059.jpg",
+          "time": 1867
+        },
+        {
+          "title": "Considerations in DMT Selection And Sequencing",
+          "imageUrl": "https://storage.googleapis.com/intl_static_files/img/eu_ean2019_ms_symposium/0060.jpg",
+          "time": 1907
+        }
+      ]
+    }
+  ]
+}

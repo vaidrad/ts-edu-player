@@ -1,0 +1,179 @@
+{
+    "accountCode": "5662516403001",
+    "playerCode": "0hVpNUYdY",
+    "slidesViewer": true,
+    "showSubSlides": false,
+    "subSlidesActive": false,
+    "chapters": [
+        {
+            "videoID": "6154958982001",
+            "slides": [
+                {
+                    "title": "Slide 1",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide1.jpg",
+                    "time": 0
+                },
+                {
+                    "title": "Slide 2",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide3.JPG",
+                    "time": 42
+                },
+                {
+                    "title": "Slide 3",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide5.JPG",
+                    "time": 86
+                },
+                {
+                    "title": "Slide 4",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide6.JPG",
+                    "time": 201
+                },
+                {
+                    "title": "Slide 5",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide7.JPG",
+                    "time": 250
+                },
+                {
+                    "title": "Slide 6",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide9.JPG",
+                    "time": 419
+                },
+                {
+                    "title": "Slide 7",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide11.JPG",
+                    "time": 503
+                },
+                {
+                    "title": "Slide 8",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide12.JPG",
+                    "time": 654
+                },
+                {
+                    "title": "Slide 9",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide13.JPG",
+                    "time": 737
+                },
+                {
+                    "title": "Slide 10",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide14.JPG",
+                    "time": 778
+                },
+                {
+                    "title": "Slide 11",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide16.JPG",
+                    "time": 862
+                },
+                {
+                    "title": "Slide 12",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide17.JPG",
+                    "time": 907
+                },
+                {
+                    "title": "Slide 13",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide18.JPG",
+                    "time": 952
+                },
+                {
+                    "title": "Slide 14",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide19.JPG",
+                    "time": 1015
+                },
+                {
+                    "title": "Slide 15",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide20.JPG",
+                    "time": 1056
+                },
+                {
+                    "title": "Slide 16",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide22.JPG",
+                    "time": 1144
+                },
+                {
+                    "title": "Slide 17",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide22.JPG",
+                    "time": 1278
+                },
+                {
+                    "title": "Slide 18",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide23.JPG",
+                    "time": 1349
+                },
+                {
+                    "title": "Slide 19",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide24.JPG",
+                    "time": 1389
+                },
+                {
+                    "title": "Slide 20",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide25.JPG",
+                    "time": 1421
+                },
+                {
+                    "title": "Slide 21",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide26.JPG",
+                    "time": 1469
+                },
+                {
+                    "title": "Slide 22",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide27.JPG",
+                    "time": 1498
+                },
+                {
+                    "title": "Slide 23",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide28.JPG",
+                    "time": 1633
+                },
+                {
+                    "title": "Slide 24",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide30.JPG",
+                    "time": 1736
+                },
+                {
+                    "title": "Slide 25",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide31.JPG",
+                    "time": 1857
+                },
+                {
+                    "title": "Slide 26",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide32.JPG",
+                    "time": 1993
+                },
+                {
+                    "title": "Slide 27",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide33.JPG",
+                    "time": 2038
+                },
+                {
+                    "title": "Slide 28",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide34.JPG",
+                    "time": 2112
+                },
+                {
+                    "title": "Slide 29",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide36.JPG",
+                    "time": 2192
+                },
+                {
+                    "title": "Slide 30",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide37.JPG",
+                    "time": 2253
+                },
+                {
+                    "title": "Slide 31",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide40.JPG",
+                    "time": 2423
+                },
+                {
+                    "title": "Slide 32",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide38.JPG",
+                    "time": 2442
+                },
+                {
+                    "title": "Slide 33",
+                    "imageUrl": "https://cp-author.biogen-support.com/content/dam/commercial-eu/neurology/microsites/landingpages/en/on-demand/valens/slides/slide40.JPG",
+                    "time": 2458
+                }
+            ]
+        }
+    ]
+}
