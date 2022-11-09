@@ -74,7 +74,7 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import slidesList from "./components/slides-list.vue";
 import slidesViewer from "./components/slides-viewer";
 import brightcoveVideo from "./components/brightcove-video";

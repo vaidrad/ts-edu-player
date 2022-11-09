@@ -56,7 +56,7 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
 import {copyStringToBuffer} from "../utils";
 export default {
   name: 'player-footer',

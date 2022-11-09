@@ -8,34 +8,77 @@
     </div>
 </template>
 
-<script>
-    export default {
-        name: "slides-viewer",
-        data: function () {
-            return {
-                enableFullScreen: false,
-                portraitMode: false
-            }
-        },
-        props: {
-            source: {
-                type: String,
-                default: ""
-            }
-        },
-        methods: {
-            enterFullScreen() {
-                this.portraitMode = (this.$refs.fullScreenImage.width / this.$refs.fullScreenImage.height < 1.7);
-                this.enableFullScreen = true;
-            },
-            exitFullScreen() {
-                this.enableFullScreen = false;
-            }
-        },
-        mounted() {
-            document.body.appendChild(this.$refs.fullScreenViewer); // AEM workaround for layer mapping
+<script lang="ts">
+import { defineComponent, onMounted, ref } from '@vue/composition-api';
+export default defineComponent({
+    name: "slides-viewer",
+    props: {
+        source: {
+            type: String,
+            default: ""
+        }
+    },
+    setup() {
+        const enableFullScreen = ref(false);
+        const portraitMode = ref(false);
+
+        const fullScreenViewer = ref(null);
+        const fullScreenImage = ref(null);
+
+        const enterFullScreen = () => {
+            portraitMode.value = (fullScreenImage.width / fullScreenImage.height < 1.7);
+            enableFullScreen.value = true;
+        }
+
+        const exitFullScreen = () => {
+            enableFullScreen.value = false;
+        }
+        
+        onMounted(() => {
+            document.body.appendChild(fullScreenViewer); // AEM workaround for layer mapping
+        })
+
+
+
+        return {
+            
+            enterFullScreen,
+            exitFullScreen,
+            enableFullScreen,
+            portraitMode,
+            fullScreenViewer,
+            fullScreenImage
         }
     }
+})
+
+    // export default {
+    //     name: "slides-viewer",
+    //     data: function () {
+    //         return {
+    //             enableFullScreen: false,
+    //             portraitMode: false
+    //         }
+    //     },
+    //     props: {
+    //         source: {
+    //             type: String,
+    //             default: ""
+    //         }
+    //     },
+    //     methods: {
+    //         enterFullScreen() {
+    //             this.portraitMode = (this.$refs.fullScreenImage.width / this.$refs.fullScreenImage.height < 1.7);
+    //             this.enableFullScreen = true;
+    //         },
+    //         exitFullScreen() {
+    //             this.enableFullScreen = false;
+    //         }
+    //     },
+    //     mounted() {
+    //         document.body.appendChild(this.$refs.fullScreenViewer); // AEM workaround for layer mapping
+    //     }
+    // }
 </script>
 
 <style scoped>
