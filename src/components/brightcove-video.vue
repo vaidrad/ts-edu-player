@@ -1,6 +1,6 @@
 <template>
     <div id="videoWrapper" @click.stop>
-        <video ref="video"
+        <video ref="videoRef"
                :data-video-id="videoID"
                :data-account="accountCode"
                :data-player="playerCode"
@@ -15,114 +15,136 @@
 </template>
 
 <script lang="ts">
-    export default {
-        name: "brightcove-video",
-        data: function () {
-            return {
-                startPlaying: false,
-                brightcovePlayer: null,
-                changedCurrentSlideIndex: false,
-            }
+import { defineComponent, onMounted, watch, ref, computed } from 'vue';
+export default defineComponent({
+    name: "brightcove-video",
+    props: {
+        accountCode: {
+            type: String,
+            default: ""
         },
-        props: {
-            accountCode: {
-                type: String,
-                default: ""
-            },
-            playerCode: {
-                type: String,
-                default: ""
-            },
-            videoID: {
-                type: String,
-                default: ""
-            },
-            time: {
-                type: Number,
-                default: 0
-            },
-            currentSlideIndex: {
-                type: Number,
-                default: 0
-            },
-            showBrightcovePlayer: {
-                type: Boolean,
-                default: true
-            }
+        playerCode: {
+            type: String,
+            default: ""
         },
-        watch: {
-            videoID(newValue) {
-                this.brightcovePlayer.autoplay(true); // workaround for play video on iOS mobile
-                this.brightcovePlayer.catalog.getVideo(newValue, (error, video) => {
-                    this.brightcovePlayer.catalog.load(video);
-                    this.play();
-                    !!window.MSInputMethodContext && !!document.documentMode && this.$refs.video.addEventListener("canplay", () => this.play(), {once: true});  // workaround for IE11
-                });
-            },
-            time() {
-               this.setCurrentTime();
-            },
-            currentSlideIndex() {
-                // workaround for iOS mobile + IE11
-                this.changedCurrentSlideIndex = true;
-                setTimeout(() => this.changedCurrentSlideIndex = false, 1000);
-            }
+        videoID: {
+            type: String,
+            default: ""
         },
-        methods: {
-            play() {
-                // workaround for iOS mobile + IE11
-                setTimeout(() => this.brightcovePlayer.play().then(() => setTimeout(() => {
-                        this.setCurrentTime();
-                    }))
-                );
-            },
-            setCurrentTime(){
-                if (Math.abs(this.time - this.brightcovePlayer.currentTime()) > 3) {
-                    this.brightcovePlayer.currentTime(this.time);
-                }
-            },
-            updatePlayerTime(currentTime) {
-                if (Math.floor(this.brightcovePlayer.currentTime()) !== currentTime) {
-                    this.brightcovePlayer.currentTime(currentTime);
-                    //setTimeout(this.updatePlayerTime, 100, currentTime);
-                }
-            },
-            setPlaybackRate(value){
-                this.brightcovePlayer.playbackRate(value);
-            },
-            setVolumeRate(value) {
-                this.brightcovePlayer.volume(value);
-            }
+        time: {
+            type: Number,
+            default: 0
         },
-        computed: {
-            setupPlayer() {
-                return this.showBrightcovePlayer ? "" : '{"ga": {"eventsToTrack": "none"}}';
-            }
+        currentSlideIndex: {
+            type: Number,
+            default: 0
         },
-        created() {
+        showBrightcovePlayer: {
+            type: Boolean,
+            default: true
+        },
+        slideTime: {
+            type: Number,
+            default: 0
+        }
+    },
+    emits: ['ended', 'timeupdate', 'canplay', 'ready'],
+    setup(props, { emit }) {
+        let startPlaying = false;
+        let brightcovePlayer = null;
+        let changedCurrentSlideIndex = false;
+        const videoRef = ref(null);
+
+        const setupPlayer = computed(() => props.showBrightcovePlayer ? "" : '{"ga": {"eventsToTrack": "none"}}')
+
+
+        const play = () => {
+            setTimeout(() => brightcovePlayer.play().then(() => setTimeout(() => {
+                    setCurrentTime();
+                }))
+            );
+        }
+
+        const setCurrentTime = () => {
+            if (Math.abs(props.time - brightcovePlayer.currentTime()) > 3) {
+                brightcovePlayer.currentTime(props.time);
+            }
+        }
+
+        const updatePlayerTime = (currentTime) => {
+            if (Math.floor(brightcovePlayer.currentTime()) !== currentTime) {
+                brightcovePlayer.currentTime(currentTime);
+            }
+        }
+
+        const setPlaybackRate = (value) => {
+            brightcovePlayer.playbackRate(value);
+        }
+
+        const setVolumeRate = (value) => {
+            brightcovePlayer.volume(value);
+        }
+
+        watch(() => props.slideTime, (newValue) => {
+            updatePlayerTime(newValue);
+        })
+        
+        watch(() => props.videoID, (value) => {
+            brightcovePlayer.autoplay(true); // workaround for play video on iOS mobile
+            brightcovePlayer.catalog.getVideo(value, (error, video) => {
+                brightcovePlayer.catalog.load(video);
+                play();
+                !!window.MSInputMethodContext && !!document.documentMode && videoRef.value.addEventListener("canplay", () => play(), {once: true});  // workaround for IE11
+            });
+        })
+
+        watch(() => props.time, () => {
+            setCurrentTime();
+        })
+
+        watch(() => props.currentSlideIndex, () => {
+             // workaround for iOS mobile + IE11
+             changedCurrentSlideIndex = true;
+            setTimeout(() => changedCurrentSlideIndex = false, 1000);
+        })
+
+        onMounted(() => {
             const script = document.createElement("script");
             script.onload = () => {
-                this.brightcovePlayer = window.bc("video");
-                this.brightcovePlayer.controls(false);
-                this.updatePlayerTime(this.time); // fix for IE (share slide)
-                this.brightcovePlayer.on('ended', () => this.$emit("ended"));
-                this.brightcovePlayer.on('playing', () => {
+                brightcovePlayer = window.bc("video");
+                brightcovePlayer.controls(false);
+                updatePlayerTime(props.time); // fix for IE (share slide)
+                brightcovePlayer.on('ended', () => emit("ended"));
+                brightcovePlayer.on('playing', () => {
                     // workaround for iOS
-                    !this.startPlaying && this.play();
-                    this.startPlaying = true;
+                    startPlaying && play();
+                    startPlaying = true;
                 });
-                this.brightcovePlayer.on('timeupdate', () => {
-                    if (!this.changedCurrentSlideIndex) this.$emit("timeupdate", Math.round(this.brightcovePlayer.currentTime()));
+                brightcovePlayer.on('timeupdate', () => {
+                    if (!changedCurrentSlideIndex) emit("timeupdate", Math.round(brightcovePlayer.currentTime()));
                 });
-                this.brightcovePlayer.on('canplay', () => this.$emit("canplay", Math.floor(this.brightcovePlayer.duration())));
-                this.brightcovePlayer.on('ready', () => this.$emit("ready"));
+                brightcovePlayer.on('canplay', () => emit("canplay", Math.floor(brightcovePlayer.duration())));
+                brightcovePlayer.on('ready', () => emit("ready"));
 
-                this.brightcovePlayer.on('ready', () => window.bcPlayer = this.brightcovePlayer);
+                brightcovePlayer.on('ready', () => window.bcPlayer = brightcovePlayer);
             };
-            script.setAttribute("src", `https://players.brightcove.net/${this.accountCode}/${this.playerCode}_default/index.min.js`);
+            script.setAttribute("src", `https://players.brightcove.net/${props.accountCode}/${props.playerCode}_default/index.min.js`);
             document.head.appendChild(script);
+
+            
+        })
+
+        return {
+            play,
+            setCurrentTime,
+            updatePlayerTime,
+            setPlaybackRate,
+            setVolumeRate,
+            videoRef,
+            setupPlayer,
         }
-    }
+    },
+})
 </script>
 
 <style scoped>

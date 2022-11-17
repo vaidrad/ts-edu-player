@@ -1,5 +1,5 @@
 <template>
-  <div id="slidesList">
+  <div id="slidesList" ref="slideList">
     <ol class="list" @click.stop>
       <li v-for="(slide, index) in slides"
           :key="index"
@@ -24,33 +24,10 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent, ref, watch, onMounted, onUpdated } from 'vue';
+
+export default defineComponent({
   name: 'slides-list',
-  data: function () {
-    return {
-      listItemHeight: 0,
-      currentSlideIndex: 0,
-      currentSubSlideIndex: undefined
-    }
-  },
-  watch: {
-    startSlideIndex() {
-      this.currentSlideIndex = this.startSlideIndex;
-    },
-    currentSlideIndex(newValue, oldValue) {
-      this.slides[oldValue].active = false;
-      this.slides[newValue].active = true;
-      this.updateSubSlide(this.subSlideIndex);
-      this.$forceUpdate();
-    },
-    subSlideIndex() {
-      this.currentSubSlideIndex = this.subSlideIndex;
-    },
-    currentSubSlideIndex(newValue) {
-      this.updateSubSlide(newValue);
-      this.$forceUpdate();
-    },
-  },
   props: {
     slides: {
       type: Array,
@@ -75,32 +52,43 @@ export default {
       default: false
     }
   },
-  methods: {
-    getLi(slide) {
-      this.$refs.index.innerHTML = slide.title;
+  emits: ['changeActiveItem'],
+  setup(props, { emit }) {
+
+    let listItemHeight = 0;
+    let currentSlideIndex = 0;
+    let currentSubSlideIndex = undefined;
+
+    const index = ref(null);
+    const slideList = ref(null);
+
+    const getLi = (slide) => {
+      index.value.innerHTML = slide.title;
       return slide.title;
-    },
-    onClick(index, subSlideIndex) {
-      if (this.subSlidesActive || (!subSlideIndex)) {
-        this.$emit("changeActiveItem", {
+    };
+    
+    const onClick = (index, subSlideIndex) => {
+      if (props.subSlidesActive || (!subSlideIndex)) {
+        emit("changeActiveItem", {
           currentSlideIndex: index,
           currentSubSlideIndex: subSlideIndex
         });
       }
-    },
-    scrollToActive() {
-      this.listItemHeight = this.$el.querySelector("li.active");
-      if(this.listItemHeight){
-        this.$el.scrollTop = Math.round(this.listItemHeight.offsetTop - this.listItemHeight.parentElement.offsetTop);
+    };
 
-        if (this.startSlideIndex !== 0 && this.slides[this.startSlideIndex].hidden) {
-          this.$el.scrollTop = this.$el.scrollHeight;
+    const scrollToActive = () => {
+      listItemHeight = slideList.value.querySelector("li.active");
+      if(listItemHeight){
+        slideList.value.scrollTop = Math.round(listItemHeight.offsetTop - listItemHeight.parentElement.offsetTop);
+
+        if (props.startSlideIndex !== 0 && props.slides[props.startSlideIndex].hidden) {
+          slideList.value.scrollTop = slideList.value.scrollHeight;
         }
       }
-      
-    },
-    updateSubSlide(newValue) {
-      this.slides.forEach((slide, index) => {
+    };
+
+    const updateSubSlide = (newValue) => {
+      props.slides.forEach((slide, index) => {
         slide.subSlides && slide.subSlides.forEach((subSlide, subIndex) => {
           if (index === this.currentSlideIndex && subIndex === newValue) {
             subSlide.active = true;
@@ -109,16 +97,146 @@ export default {
           }
         });
       });
-    }
+    };
+
+    watch(() => props.startSlideIndex, () => {
+      currentSlideIndex = props.startSlideIndex;
+    });
+
+    watch(() => currentSlideIndex, (newValue, oldValue) => {
+      props.slides[oldValue].active = false;
+      props.slides[newValue].active = true;
+      updateSubSlide(props.subSlideIndex);
+      scrollToActive();
+    });
+
+    watch(() => props.subSlideIndex, () => {
+      currentSubSlideIndex = props.subSlideIndex;
+    });
+
+    watch(() => currentSubSlideIndex, (newValue) => {
+      updateSubSlide(newValue);
+      scrollToActive();
+    });
+    
+    onMounted(() => {
+      currentSlideIndex = props.startSlideIndex;
+      scrollToActive();
+    });
+
+    onUpdated(() => {
+      scrollToActive();
+    });
+
+    return {
+      listItemHeight,
+      currentSlideIndex,
+      currentSubSlideIndex,
+      index,
+      slideList,
+      getLi,
+      onClick,
+      scrollToActive,
+      updateSubSlide,
+    };
   },
-  updated() {
-    this.scrollToActive();
-  },
-  mounted() {
-    this.currentSlideIndex = this.startSlideIndex;
-    this.scrollToActive();
-  }
-}
+});
+
+// export default {
+//   name: 'slides-list',
+//   data: function () {
+//     return {
+//       listItemHeight: 0,
+//       currentSlideIndex: 0,
+//       currentSubSlideIndex: undefined
+//     }
+//   },
+//   watch: {
+//     startSlideIndex() {
+//       this.currentSlideIndex = this.startSlideIndex;
+//     },
+//     currentSlideIndex(newValue, oldValue) {
+//       this.slides[oldValue].active = false;
+//       this.slides[newValue].active = true;
+//       this.updateSubSlide(this.subSlideIndex);
+//       this.$forceUpdate();
+//     },
+//     subSlideIndex() {
+//       this.currentSubSlideIndex = this.subSlideIndex;
+//     },
+//     currentSubSlideIndex(newValue) {
+//       this.updateSubSlide(newValue);
+//       this.$forceUpdate();
+//     },
+//   },
+//   props: {
+//     slides: {
+//       type: Array,
+//       default: () => {
+//         return [];
+//       }
+//     },
+//     startSlideIndex: {
+//       type: Number,
+//       default: 0
+//     },
+//     showSubSlides: {
+//       type: Boolean,
+//       default: false
+//     },
+//     subSlideIndex: {
+//       type: Number,
+//       default: undefined
+//     },
+//     subSlidesActive: {
+//       type: Boolean,
+//       default: false
+//     }
+//   },
+//   methods: {
+//     getLi(slide) {
+//       this.$refs.index.innerHTML = slide.title;
+//       return slide.title;
+//     },
+//     onClick(index, subSlideIndex) {
+//       if (this.subSlidesActive || (!subSlideIndex)) {
+//         this.$emit("changeActiveItem", {
+//           currentSlideIndex: index,
+//           currentSubSlideIndex: subSlideIndex
+//         });
+//       }
+//     },
+//     scrollToActive() {
+//       this.listItemHeight = this.$el.querySelector("li.active");
+//       if(this.listItemHeight){
+//         this.$el.scrollTop = Math.round(this.listItemHeight.offsetTop - this.listItemHeight.parentElement.offsetTop);
+
+//         if (this.startSlideIndex !== 0 && this.slides[this.startSlideIndex].hidden) {
+//           this.$el.scrollTop = this.$el.scrollHeight;
+//         }
+//       }
+      
+//     },
+//     updateSubSlide(newValue) {
+//       this.slides.forEach((slide, index) => {
+//         slide.subSlides && slide.subSlides.forEach((subSlide, subIndex) => {
+//           if (index === this.currentSlideIndex && subIndex === newValue) {
+//             subSlide.active = true;
+//           } else {
+//             subSlide.active = false;
+//           }
+//         });
+//       });
+//     }
+//   },
+//   updated() {
+//     this.scrollToActive();
+//   },
+//   mounted() {
+//     this.currentSlideIndex = this.startSlideIndex;
+//     this.scrollToActive();
+//   }
+// }
 </script>
 
 <style scoped>

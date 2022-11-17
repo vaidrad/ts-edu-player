@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from '@vue/composition-api';
+import { defineComponent, onMounted, ref } from 'vue';
 export default defineComponent({
     name: "slides-viewer",
     props: {
@@ -35,13 +35,12 @@ export default defineComponent({
         }
         
         onMounted(() => {
-            document.body.appendChild(fullScreenViewer); // AEM workaround for layer mapping
+            document.body.appendChild(fullScreenViewer.value); // AEM workaround for layer mapping
         })
 
 
 
         return {
-            
             enterFullScreen,
             exitFullScreen,
             enableFullScreen,
@@ -50,35 +49,7 @@ export default defineComponent({
             fullScreenImage
         }
     }
-})
-
-    // export default {
-    //     name: "slides-viewer",
-    //     data: function () {
-    //         return {
-    //             enableFullScreen: false,
-    //             portraitMode: false
-    //         }
-    //     },
-    //     props: {
-    //         source: {
-    //             type: String,
-    //             default: ""
-    //         }
-    //     },
-    //     methods: {
-    //         enterFullScreen() {
-    //             this.portraitMode = (this.$refs.fullScreenImage.width / this.$refs.fullScreenImage.height < 1.7);
-    //             this.enableFullScreen = true;
-    //         },
-    //         exitFullScreen() {
-    //             this.enableFullScreen = false;
-    //         }
-    //     },
-    //     mounted() {
-    //         document.body.appendChild(this.$refs.fullScreenViewer); // AEM workaround for layer mapping
-    //     }
-    // }
+});
 </script>
 
 <style scoped>

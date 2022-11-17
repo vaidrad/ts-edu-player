@@ -1,5 +1,5 @@
 <template>
-  <div class="player-footer">
+  <div class="player-footer" ref="playerFooter">
       <div id="controlBtnWrapper1">
         <button class="control-btn" id="play" title="Play/Pause"
                 :class="{'playing':isPlaying}"
@@ -11,10 +11,10 @@
                 :class="{'disabled':isGoToNextDisabled}" v-if="!onlyPlayer"
                 @click.stop="goToSlide({currentSlideIndex: currentSlideIndex + 1})"></button>
         <button class="control-btn" id="rewindBack" title="Move back"
-                :class="{'disabled':isVideoReady}"
+                :class="{'disabled':!isVideoReady}"
                 @click="rewindVideo(0)"></button>
         <button class="control-btn" id="rewindForward" title="Move forward"
-                :class="{'disabled':isVideoReady}"
+                :class="{'disabled':!isVideoReady}"
                 @click="rewindVideo(1)"></button>
         <p class="current-time">{{ currentTime || "00:00" }}</p>
       </div>
@@ -58,27 +58,16 @@
 
 <script lang="ts">
 import {copyStringToBuffer} from "../utils";
-export default {
+import { computed, defineComponent, ref, watch, getCurrentInstance, onMounted } from 'vue';
+import store from '../store/store.ts';
+// import type { Ref } from 'vue';
+ 
+export default defineComponent({
   name: 'player-footer',
-  data: function () {
-    return {
-      currentVideoTimeInSecs: 0,
-      progressLineWatched: 0,
-      progressLineBuffered: '0',
-      timeStampPostions: [],
-      playbackRate: 1,
-      isPlaybackRateShow: false,
-      playbackRateValues: [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
-      isVolumeRateShow: false,
-      volumeRate: 100,
-      volumeRangeWidth: '8rem',
-      isRewinded: false
-    }
-  },
   props: {
     isVideoReady: {
       type: Boolean,
-      default: true
+      default: false
     },
     isPlaying: {
       type: Boolean,
@@ -104,10 +93,6 @@ export default {
       type: Boolean,
       default: false
     },
-    isSwitchDisabled: {
-      type: Boolean,
-      default: false
-    },
     showBrightcovePlayer: {
       type: Boolean,
       default: true
@@ -119,26 +104,46 @@ export default {
     currentVideoTime: {
       type: Number,
       default: 0
-    }
+    },
   },
-  computed: {
-    currentTime() {
-      if(!this.isVideoReady) {
-        if(this.currentVideoTime < 600) {
-          return new Date(this.currentVideoTime*1000).toUTCString().split(/ /)[4].slice(4, 8);
-        } else if(this.currentVideoTime < 3600) {
-          return new Date(this.currentVideoTime*1000).toUTCString().split(/ /)[4].slice(3, 8);
+  emits: ['changevolumerate', 'play', 'changeActiveItem', 'rewindVideo', 'progresslineclick', 'setplaybackrate', 'toggleVideoPosition', 'enterFullScreenVideo', 'share'],
+  setup(props, { emit }) {
+    const currentVideoTimeInSecs = ref(0);
+    const progressLineWatched = ref(0);
+    const progressLineBuffered = ref('0');
+    const timeStampPostions = ref([]);
+    const playbackRate = ref(1);
+    const isPlaybackRateShow = ref(false);
+    const playbackRateValues = ref([0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2]);
+    const isVolumeRateShow = ref(false);
+    const volumeRate = ref(100);
+    const volumeRangeWidth = ref('8rem');
+    let isRewinded = false;
+    const isSwitchDisabled = computed(() => store.getters.getIsSwitchDisabled)
+
+    //Ref<null> | Ref<HTMLElement>
+    const progressBar = ref(null);
+    const playerFooter = ref(null);
+    const instance = getCurrentInstance();
+
+    const currentTime = computed(() => {
+      if(props.isVideoReady) {
+        if(props.currentVideoTime < 600) {
+          return new Date(props.currentVideoTime*1000).toUTCString().split(/ /)[4].slice(4, 8);
+        } else if(props.currentVideoTime < 3600) {
+          return new Date(props.currentVideoTime*1000).toUTCString().split(/ /)[4].slice(3, 8);
         } else{
-          return new Date(this.currentVideoTime*1000).toUTCString().split(/ /)[4];
+          return new Date(props.currentVideoTime*1000).toUTCString().split(/ /)[4];
         }
       }
       return '0:00';
-    },
-    remainingTime() {
-      if(!this.isVideoReady) {
-        let time = this.videoDuration - this.currentVideoTime;
+    });
+
+    const remainingTime = computed(() => {
+      if(props.isVideoReady) {
+        let time = props.videoDuration - props.currentVideoTime;
         if(time < 600) {
-          if(this.currentVideoTime > this.videoDuration){
+          if(props.currentVideoTime > props.videoDuration){
             return '0:00';
           }
           return new Date(time*1000).toUTCString().split(/ /)[4].slice(4, 8);
@@ -149,88 +154,105 @@ export default {
         }
       }
       return '00:00';
-    }
-  },
-  watch: {
-    volumeRate(value) {
-      this.$emit('changevolumerate', value)
-      this.handleVolumeChange();
-    },
-  },
-  methods: {
-    initBufferingWatcher() {
+    });
+
+    watch(() => volumeRate.value, (value) => {
+      emit('changevolumerate', value)
+      handleVolumeChange();
+    });
+
+    const initBufferingWatcher = () => {
       setInterval(() => {
-        let buffered = this.$parent.$refs.brightcoveVideo.brightcovePlayer.bufferedPercent() * 100;
-        let timeleft = (1 - this.currentVideoTime / this.videoDuration) * 100;
-        this.progressLineBuffered = timeleft > buffered ? buffered + "%" : timeleft + "%";
-      }, 600)
+        // to fix
+        let buffered = instance.parent.$refs.brightcoveVideo.brightcovePlayer.bufferedPercent() * 100;
+        let timeleft = (1 - props.currentVideoTime / props.videoDuration) * 100;
+        progressLineBuffered.value = timeleft > buffered ? buffered + "%" : timeleft + "%";
+      }, 600);
       setInterval(() => {
-        this.changeProgressBarLine();
-      }, 50)
-    },
-    changeProgressBarLine() {
-      this.progressLineWatched = this.$refs.progressBar.value / this.videoDuration * this.$refs.progressBar.getBoundingClientRect().width;
-    },
-    play() {
-      this.$emit('play');
-    },
-    goToSlide(subSlideIndex) {
-      this.isVolumeRateShow = false;
-      this.isPlaybackRateShow = false;
-      this.$emit("changeActiveItem", subSlideIndex);
-    },
-    rewindVideo(direction) {
-      this.$emit('rewindVideo', direction);
-    },
-    handleProgressLineClick() {
-      if(this.currentVideoTimeInSecs != this.currentVideoTime) {
-        this.$emit('progresslineclick', Number(this.currentVideoTimeInSecs));
+        changeProgressBarLine();
+      }, 50);
+    };
+
+    const changeProgressBarLine = () => {
+      if(progressBar.value){
+        progressLineWatched.value = progressBar.value.value / props.videoDuration * progressBar.value.getBoundingClientRect().width;
       }
-    },
-    handleProgressLineInput() {
-      this.changeProgressBarLine()
-      if(!this.isRewinded && (this.currentVideoTimeInSecs - this.currentVideoTime > 3 || this.currentVideoTimeInSecs - this.currentVideoTime < 3) ){
-        this.isRewinded = true;
+    };
+
+    const play = () => {
+      emit('play');
+    };
+
+    const goToSlide = (subSlideIndex) => {
+      isVolumeRateShow.value = false;
+      isPlaybackRateShow.value = false;
+      emit("changeActiveItem", subSlideIndex);
+    }
+
+    const rewindVideo = (direction) => {
+      emit('rewindVideo', direction);
+    }
+
+    const handleProgressLineClick = () => {
+      if(currentVideoTimeInSecs.value != props.currentVideoTime) {
+        emit('progresslineclick', Number(currentVideoTimeInSecs.value));
+      }
+    }
+
+    const handleProgressLineInput = () => {
+      changeProgressBarLine()
+      if(!isRewinded && (currentVideoTimeInSecs.value - props.currentVideoTime > 3 || currentVideoTimeInSecs.value - props.currentVideoTime < 3) ){
+        isRewinded = true;
         setTimeout(() => {
-          this.$emit('progresslineclick', Number(this.currentVideoTimeInSecs));
-          this.isRewinded = false;
+          emit('progresslineclick', Number(currentVideoTimeInSecs.value));
+          isRewinded = false;
         }, 100);
       }
-    },
-    togglePlaybackRateShow() {
-      this.isPlaybackRateShow = !this.isPlaybackRateShow;
-      this.isVolumeRateShow = false;
-    },
-    openPlaybackRate() {
-      this.isPlaybackRateShow = true;
-      this.isVolumeRateShow = false;
-    },  
-    closePlaybackRate() {
-      this.isPlaybackRateShow = false;
-    },
-    setPlaybackRate(value) {
-      this.playbackRate = value;
-      this.$emit('setplaybackrate', value)
-    },
-    openVolumeRateShow() {
-      this.isPlaybackRateShow = false
-      this.isVolumeRateShow = true;
-    },
-    handleClickVolumeRate() {
-      this.volumeRate === 0 ? this.volumeRate = 100 : this.volumeRate = 0;
-    },
-    closeVolumeRateShow() {
-      this.isVolumeRateShow = false;
-    },
-    toggleVideoPosition() {
-      this.$emit('toggleVideoPosition');
-    },
-    enterFullScreenVideo() {
-      this.$emit('enterFullScreenVideo');
-    },
-    share() {
+    }
+
+    const togglePlaybackRateShow = () => {
+      isPlaybackRateShow.value = !isPlaybackRateShow.value;
+      isVolumeRateShow.value = false;
+    }
+
+    const openPlaybackRate = () => {
+      isPlaybackRateShow.value = true;
+      isVolumeRateShow.value = false;
+    }
+
+    const closePlaybackRate = () => {
+      isPlaybackRateShow.value = false;
+    }
+
+    const setPlaybackRate = (value) => {
+      playbackRate.value = value;
+      emit('setplaybackrate', value);
+    }
+
+    const openVolumeRateShow = () => {
+      isPlaybackRateShow.value = false
+      isVolumeRateShow.value = true;
+    }
+
+    const handleClickVolumeRate = () => {
+      volumeRate.value === 0 ? volumeRate.value = 100 : volumeRate.value = 0;
+    }
+
+    const closeVolumeRateShow = () => {
+      isVolumeRateShow.value = false;
+    }
+
+    const toggleVideoPosition = () => {
+      emit('toggleVideoPosition');
+    }
+
+    const enterFullScreenVideo = () => {
+      emit('enterFullScreenVideo');
+    }
+
+    const share = () => {
       let url;
-      const param = `currentSlideIndex=${this.currentSlideIndex + 1}`;
+      const param = `currentSlideIndex=${props.currentSlideIndex + 1}`;
       if (location.href.includes("currentSlideIndex")) {
         const regex = new RegExp("currentSlideIndex" + '=([^&#]*)');
         url = location.href.replace(regex, param);
@@ -238,21 +260,72 @@ export default {
         url = `${location.href}?${param}`;
       }
 
-      copyStringToBuffer(url, this.$el);
+      copyStringToBuffer(url, playerFooter.value);
 
-      this.$emit('share')
-    },
-    handleVolumeChange() {
-      this.volumeRangeWidth = this.volumeRate != 0 ? this.volumeRate * 0.08 + 0.8 / (this.volumeRate + 0.0001) + 'rem' : '0rem';
-    },
-    calculateTimeStamps(slides, videoDuration) {
-      if(!this.onlyPlayer){
-        this.timeStampPostions = slides.map(slide => slide.time / videoDuration * 100 + '%');
-        this.timeStampPostions.shift();
+      emit('share');
+    }
+
+    const handleVolumeChange = () => {
+      volumeRangeWidth.value = volumeRate.value != 0 ? volumeRate.value * 0.08 + 0.8 / (volumeRate.value + 0.0001) + 'rem' : '0rem';
+    }
+
+    const calculateTimeStamps = (slides, videoDuration) => {
+      if(!props.onlyPlayer){
+        timeStampPostions.value = slides.map(slide => slide.time / videoDuration * 100 + '%');
+        timeStampPostions.value.shift();
       }
-    },
-  }
-}
+    }
+
+    //todo, проблема в том, что вызывается раньше, чем заполняется videoDuration
+    onMounted(() => {
+      calculateTimeStamps(store.getters.getSlides, store.getters.getVideoDuration)
+    })
+
+    const checkCurrentVideoTime = computed(() => store.getters.getCurrentVideoTime)
+
+    watch(checkCurrentVideoTime, (newValue) => {
+      currentVideoTimeInSecs.value = newValue
+    });
+
+    return {
+      isSwitchDisabled,
+      currentVideoTimeInSecs,
+      progressLineWatched,
+      progressLineBuffered,
+      timeStampPostions,
+      playbackRate,
+      isPlaybackRateShow,
+      playbackRateValues,
+      isVolumeRateShow,
+      volumeRate,
+      volumeRangeWidth,
+      isRewinded,
+      currentTime,
+      remainingTime,
+      progressBar,
+      playerFooter,
+      initBufferingWatcher,
+      changeProgressBarLine,
+      play,
+      goToSlide,
+      rewindVideo,
+      handleProgressLineClick,
+      handleProgressLineInput,
+      togglePlaybackRateShow,
+      openPlaybackRate,
+      closePlaybackRate,
+      setPlaybackRate,
+      openVolumeRateShow,
+      handleClickVolumeRate,
+      closeVolumeRateShow,
+      toggleVideoPosition,
+      enterFullScreenVideo,
+      share,
+      handleVolumeChange,
+      calculateTimeStamps,
+    }
+  },
+})
 </script>
 
 <style scoped>

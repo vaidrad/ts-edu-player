@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="{ 'hidden-slides-viewer': !slidesViewer, 'full-screen-mode': isFullScreen, 'only-player': onlyPlayer }" @click="handleAppClick" @mouseleave="closeRates">
+  <div id="app" :class="{ 'hidden-slides-viewer': !slidesViewer, 'full-screen-mode': isFullScreen, 'only-player': onlyPlayer }" @click="handleAppClick" @mouseleave="closeRates" ref="root">
     <div id="mainContent" :style="{ height: videoHeight }">
       <transition name="fade">
         <div id="shareMessage" v-if="shareMessage">Copied to the clipboard.</div>
@@ -16,6 +16,7 @@
                           :showBrightcovePlayer="showBrightcovePlayer"
                           :time="currentVideoTime"
                           :currentSlideIndex="currentSlideIndex"
+                          :slideTime="slideTime"
                           @timeupdate="onTimeUpdate"
                           @ended="onEnded"
                           @canplay="handleVideoCanPlay"
@@ -28,12 +29,12 @@
             </div>
             <div id="buttonsHover">
               <button class="control-btn" id="rewindBackHover" title="Move back"
-                :class="{'disabled':isVideoReady}"
+                :class="{'disabled':!isVideoReady}"
                 @click.stop="rewindVideo(0)"></button>
               <button class="control-btn" id="playHover" title="Play/Pause"
-                :class="{'disabled':isVideoReady, 'playing':isPlaying}"></button>
+                :class="{'disabled':!isVideoReady, 'playing':isPlaying}"></button>
               <button class="control-btn" id="rewindForwardHover" title="Move forward"
-                :class="{'disabled':isVideoReady}"
+                :class="{'disabled':!isVideoReady}"
                 @click.stop="rewindVideo(1)"></button>
             </div>
           </div>
@@ -50,14 +51,13 @@
       </div>
     </div>
     <player-footer ref="playerFooter"
-                    :isVideoReady="isVideoReady"
+                    :isVideoReady="!isVideoReady"
                     :isPlaying="isPlaying"
                     :isGoToPrevDisabled="isGoToPrevDisabled"
                     :isGoToNextDisabled="isGoToNextDisabled"
                     :onlyPlayer="onlyPlayer"
                     :videoDuration="videoDuration"
                     :isVideoBig="isVideoBig"
-                    :isSwitchDisabled="isSwitchDisabled"
                     :showBrightcovePlayer="showBrightcovePlayer"
                     :currentSlideIndex="currentSlideIndex"
                     :currentVideoTime="currentVideoTime"
@@ -80,11 +80,13 @@ import slidesViewer from "./components/slides-viewer";
 import brightcoveVideo from "./components/brightcove-video";
 import playerFooter from "./components/player-footer"
 import vueConfig from "../vue.config";
-import {getUrlParameter} from "./utils";
+// import {getUrlParameter} from "./utils";
+import { computed, defineComponent, onMounted, ref, watch } from "vue";
+import store from './store/store.ts';
 
 const configJsonPath = `${vueConfig.publicPath}/config.json`;
 
-export default {
+export default defineComponent({
   name: "aem-video-slides",
   components: {
     slidesList,
@@ -92,288 +94,361 @@ export default {
     brightcoveVideo,
     playerFooter
   },
-  data: function () {
-    return {
-      isVideoBig: false,
-      shareMessage: false,
-      currentSlideIndex: undefined,
-      currentSubSlideIndex: 0,
-      configuration: {},
-      slides: [],
-      slidesViewer: false,
-      showSubSlides: false,
-      showBrightcovePlayer: true,
-      subSlidesActive: false,
-      onlyPlayer: false,
-      currentVideoTime: 0,
-      currentSlide: {
-        title: "",
-        videoID: "",
-        imageUrl: "",
-        time: 0,
-        subSlides: []
-      },
-      currentVideo: {
-        accountCode: "",
-        playerCode: ""
-      },
-      title: "",
-      videoDuration: 0,
-      videoDurationInMins: 0,
-      isVideoReady: true,
-      isPlaying: false,
-      isFullScreen: false,
-      videoHeight: null,
-      isSwitchDisabled: false
-    }
-  },
-  computed: {
-    isGoToPrevDisabled() {
-      return (this.slides.length === 0) || (this.currentSlideIndex === 0);
-    },
-    isGoToNextDisabled() {
-      return (this.slides.length === 0) || (this.currentSlideIndex === this.slides.length - 1);
-    },
-  },
-  watch: {
-    currentSlideIndex() {
-      if(this.slides){
-        this.currentSlide = this.slides[this.currentSlideIndex];
+  setup() {
+
+    const isVideoBig = computed(() => store.getters.getIsVideoBig);
+    const shareMessage = ref(false);
+    const currentSlideIndex = computed(() => store.getters.getCurrentSlideIndex);
+    const currentSubSlideIndex = ref(0);
+    const slideTime = ref(0);
+    const brightcoveVideo = ref(null);
+    const slides = computed(() => store.getters.getSlides);
+    const slidesViewer = computed(() => store.getters.getSlidesViewer);
+    const showSubSlides = computed(() => store.getters.getShowSubSlides);
+    const showBrightcovePlayer = computed(() => store.getters.getShowBrightcovePlayer);
+    const subSlidesActive = computed(() => store.getters.getSubSlidesActive);
+    const onlyPlayer = computed(() => store.getters.getOnlyPlayer);
+    const currentVideoTime = computed(() => store.getters.getCurrentVideoTime);
+    const currentSlide = computed(() => store.getters.getCurrentSlide);
+    const currentVideo = computed(() => store.getters.getCurrentVideo);
+    const title = computed(() => store.getters.getTitle);
+    //add mutation to create videoDuration
+    const videoDuration = computed(() => store.getters.getVideoDuration);
+    const videoDurationInMins = ref(0);
+    const isVideoReady = ref(false);
+    const isPlaying = ref(false);
+    const isFullScreen = ref(false);
+    const videoHeight = ref(null);
+    const root = ref(null);
+
+    const isGoToPrevDisabled = computed(() => {
+      return (slides.value.length === 0) || (currentSlideIndex.value === 0);
+    });
+    
+    const isGoToNextDisabled = computed(() => {
+      return (slides.value.length === 0) || (currentSlideIndex.value === slides.value.length - 1);
+    });
+
+    watch(() => currentSlideIndex.value, (newValue) => {
+      if(slides.value){
+        currentSlide.value = slides.value[newValue];
       }
-    },
-    currentVideoTime() {
-      this.$refs.playerFooter.currentVideoTimeInSecs = this.currentVideoTime;
-      this.changeProgressBarLine();
-    }
-  },
-  methods: {
-    getSource() {
-      let imageUrl = this.currentSlide.imageUrl;
-      if (this.currentSlide.subSlides) {
-        this.currentSlide.subSlides.forEach((subSlide) => {
-          if (this.currentVideoTime >= subSlide.time) {
+    })
+
+    //связь с футером todo
+    // watch(() => currentVideoTime.value, () => {
+    //   store.commit('setcurrentVideoTime', currentVideoTime.value)
+    //   changeProgressBarLine();
+    // });
+
+    const getSource = () => {
+      let imageUrl = currentSlide.value.imageUrl;
+      if (currentSlide.value.subSlides) {
+        currentSlide.value.subSlides.forEach((subSlide) => {
+          if (currentVideoTime.value >= subSlide.time) {
             imageUrl = subSlide.imageUrl;
           }
         });
       }
       return imageUrl;
-    },
-    onTimeUpdate(currentTime) {
-      if(!this.onlyPlayer){
+    };
+
+    const onTimeUpdate = (currentTime) => {
+      if(!onlyPlayer.value){
         let slideIndex = 0;
         let subSlideIndex;
 
-        this.slides.forEach((slide, index) => {
+        slides.value.forEach((slide, index) => {
           if (currentTime >= slide.time) slideIndex = index;
         });
-        this.slides[slideIndex].subSlides && this.slides[slideIndex].subSlides.forEach((subSlide, index) => {
+        slides.value[slideIndex].subSlides && slides.value[slideIndex].subSlides.forEach((subSlide, index) => {
           if (currentTime >= subSlide.time) subSlideIndex = index;
         });
 
-        this.currentSlideIndex = slideIndex;
-        this.currentSubSlideIndex = subSlideIndex;
+        currentSlideIndex.value = slideIndex;
+        currentSubSlideIndex.value = subSlideIndex;
       }
       
-      this.currentVideoTime = currentTime;
-    },
-    onEnded() {
-      if(!this.onlyPlayer){
-        (this.currentSlideIndex !== this.slides.length - 1) && this.goToSlide(++this.currentSlideIndex);
+      currentVideoTime.value = currentTime;
+    };
+
+    const onEnded = () => {
+      if(!onlyPlayer.value){
+        (currentSlideIndex.value !== slides.value.length - 1) && goToSlide(++currentSlideIndex.value);
       }
-      this.isPlaying = false;
-    },
-    goToSlide(slide) {
+      isPlaying.value = false;
+    };
+
+    const goToSlide = (slide) => {
       if (slide.currentSubSlideIndex !== undefined) {
-        this.currentVideoTime = this.slides[slide.currentSlideIndex].subSlides[slide.currentSubSlideIndex].time;
+        currentVideoTime.value = slides.value[slide.currentSlideIndex].subSlides[slide.currentSubSlideIndex].time;
       } else {
-        this.currentVideoTime = this.slides[slide.currentSlideIndex].time;
+        currentVideoTime.value = slides.value[slide.currentSlideIndex].time;
       }
-      this.changeProgressBarLine();
-      this.currentSlideIndex = slide.currentSlideIndex;
-      this.currentSubSlideIndex = undefined;
-      this.$refs.brightcoveVideo.updatePlayerTime(this.slides[slide.currentSlideIndex].time);
-    },
-    enterFullScreenVideo() {
-      if(this.isFullScreen){
+      changeProgressBarLine();
+      currentSlideIndex.value = slide.currentSlideIndex;
+      currentSubSlideIndex.value = undefined;
+      // asist?
+      slideTime.value = slides.value[slide.currentSlideIndex].time;
+    };
+
+    const enterFullScreenVideo = () => {
+      if(isFullScreen.value){
+        // asist webkit?
         document.exitFullscreen ? document.exitFullscreen() : document.webkitExitFullscreen();
-        this.isFullScreen = false;
-        this.videoHeight = '';
+        isFullScreen.value = false;
+        videoHeight.value = '';
       } else if(window.innerWidth > 767){
-        this.desktopFullScreen();
+        desktopFullScreen();
       } else{
-        this.mobileFullScreen();
+        mobileFullScreen();
       }
-    },
-    desktopFullScreen() {
-        if(this.$el.requestFullscreen){
-          this.$el.requestFullscreen().then(this.addExitFullScreenListener);
-        } else{
-          this.$el.webkitRequestFullscreen();
-          setTimeout(this.addExitFullScreenListener, 400);
-        }
-    },
-    mobileFullScreen() {
-      this.$refs.brightcoveVideo.brightcovePlayer.controls(true);
-      this.$refs.brightcoveVideo.$el.querySelector('button.vjs-fullscreen-control.vjs-control.vjs-button').click(); 
-      setTimeout(this.addMobileExitFullScreenListener, 400)
-    },
-    addExitFullScreenListener() {
+    };
+
+    const desktopFullScreen = () => {
+      if(root.value.requestFullscreen){
+        root.value.requestFullscreen().then(addExitFullScreenListener);
+      } else{
+        root.value.webkitRequestFullscreen();
+        setTimeout(addExitFullScreenListener, 400);
+      }
+    };
+
+    const mobileFullScreen = () => {
+      window.bcPlayer.controls(true);
+      brightcoveVideo.value.querySelector('button.vjs-fullscreen-control.vjs-control.vjs-button').click(); 
+      setTimeout(addMobileExitFullScreenListener, 400)
+    };
+
+    const addExitFullScreenListener = () => {
       setTimeout(() => {
-        this.isFullScreen = true;
-        this.calculateVideoHeight();
+        isFullScreen.value = true;
+        calculateVideoHeight();
         document.addEventListener('fullscreenchange', (event) => {
           if(event.target.classList.contains('full-screen-mode') && this.isFullScreen === true) {
-            this.isFullScreen = false;
-            this.videoHeight = '';
+            isFullScreen.value = false;
+            videoHeight.value = '';
           }
         }, {once: true})
-      }, 100)
-    },
-    addMobileExitFullScreenListener() {
+      }, 100);
+    };
+
+    const addMobileExitFullScreenListener = () => {
       setTimeout(() => {
         document.addEventListener('fullscreenchange', () => {
-          this.isFullScreen = false;
-          this.$refs.brightcoveVideo.brightcovePlayer.controls(false);
+          isFullScreen.value = false;
+          window.bcPlayer.controls(false);
         }, {once: true})
       }, 100)
-    },
-    toggleVideoPosition() {
-      this.isVideoBig = !this.isVideoBig;
-    },
-    share() {
-      this.shareMessage = true;
-      setTimeout(() => this.shareMessage = false, 2000);
-    },
-    handleVideoCanPlay(duration) {
-      this.isVideoReady = false;
-      this.videoDuration = duration;
-      this.videoDurationInMins = Math.floor(duration / 60);
-      this.changeProgressBarLine();
-      this.$refs.playerFooter.calculateTimeStamps(this.slides, this.videoDuration);
-    },
-    handleAppClick() {
-      this.isPlaying = !this.$refs.brightcoveVideo.brightcovePlayer.paused();
-      this.$refs.playerFooter.isVolumeRateShow = false;
-      this.$refs.playerFooter.isPlaybackRateShow = false;
-    },
-    play() {
-      if(this.$refs.brightcoveVideo.brightcovePlayer.paused()) {
-        this.$refs.brightcoveVideo.brightcovePlayer.play();
-      } else{
-        this.$refs.brightcoveVideo.brightcovePlayer.pause();
-      }
-      this.changeProgressBarLine();
-    },
-    rewindVideo(isForward) {
+    };
+
+    const toggleVideoPosition = () => {
+      isVideoBig.value = !isVideoBig.value;
+    };
+
+    const share = () => {
+      shareMessage.value = true;
+      setTimeout(() => shareMessage.value = false, 2000);
+    };
+
+    const handleVideoCanPlay = (duration) => {
+      isVideoReady.value = true;
+      videoDuration.value = duration;
+      videoDurationInMins.value = Math.floor(duration / 60);
+      changeProgressBarLine();
+      // todo
+      //this.$refs.playerFooter.calculateTimeStamps(this.slides, this.videoDuration);
+    };
+
+    const handleAppClick = () => {
+      //todo
+      // isPlaying.value = !this.$refs.brightcoveVideo.brightcovePlayer.paused();
+      // this.$refs.playerFooter.isVolumeRateShow = false;
+      // this.$refs.playerFooter.isPlaybackRateShow = false;
+    };
+
+    const play = () => {
+      // if(this.$refs.brightcoveVideo.brightcovePlayer.paused()) {
+      //   this.$refs.brightcoveVideo.brightcovePlayer.play();
+      // } else{
+      //   this.$refs.brightcoveVideo.brightcovePlayer.pause();
+      // }
+      changeProgressBarLine();
+    };
+
+    const rewindVideo = (isForward) => {
+      //todo
       if(isForward){
-        this.currentVideoTime + 15 < this.videoDuration ? this.$refs.brightcoveVideo.updatePlayerTime(this.currentVideoTime + 15) : this.$refs.brightcoveVideo.updatePlayerTime(this.videoDuration - 1);
+        currentVideoTime.value + 15 < videoDuration.value ? this.$refs.brightcoveVideo.updatePlayerTime(this.currentVideoTime + 15) : this.$refs.brightcoveVideo.updatePlayerTime(videoDuration.value - 1);
       } else{
-        this.currentVideoTime > 15 ? this.$refs.brightcoveVideo.updatePlayerTime(this.currentVideoTime - 15) : this.$refs.brightcoveVideo.updatePlayerTime(0);
+        currentVideoTime.value > 15 ? this.$refs.brightcoveVideo.updatePlayerTime(currentVideoTime.value - 15) : this.$refs.brightcoveVideo.updatePlayerTime(0);
       }
-    },
-    changeProgressBarLine() {
-      this.$refs.playerFooter.changeProgressBarLine();
-    },
-    initBufferingWatcher() {
-      this.$refs.playerFooter.initBufferingWatcher();
-    },
-    calculateVideoHeight() {
-      if(this.onlyPlayer){
-        this.videoHeight = this.$refs.brightcoveVideo.brightcovePlayer.videoHeight() / this.$refs.brightcoveVideo.brightcovePlayer.videoWidth() * 100 + 'vw';
+    };
+
+    const changeProgressBarLine = () => {
+      //todo
+      // this.$refs.playerFooter.changeProgressBarLine();
+    };
+
+    const initBufferingWatcher = () => {
+      // this.$refs.playerFooter.initBufferingWatcher();
+    };
+
+    const calculateVideoHeight = () => {
+      //todo
+      if(onlyPlayer.value){
+        videoHeight.value = this.$refs.brightcoveVideo.brightcovePlayer.videoHeight() / this.$refs.brightcoveVideo.brightcovePlayer.videoWidth() * 100 + 'vw';
       } else if(window.innerWidth > 767 && this.slidesViewer){
-        this.videoHeight = this.$refs.brightcoveVideo.brightcovePlayer.videoHeight() / (this.$refs.brightcoveVideo.brightcovePlayer.videoWidth() / 0.66) * 100 + 'vw';
+        videoHeight.value = this.$refs.brightcoveVideo.brightcovePlayer.videoHeight() / (this.$refs.brightcoveVideo.brightcovePlayer.videoWidth() / 0.66) * 100 + 'vw';
       } else if(window.innerWidth > 767){
-        this.videoHeight = this.$refs.brightcoveVideo.brightcovePlayer.videoHeight() / (this.$refs.brightcoveVideo.brightcovePlayer.videoWidth() / 0.75) * 100 + 'vw';
+        videoHeight.value = this.$refs.brightcoveVideo.brightcovePlayer.videoHeight() / (this.$refs.brightcoveVideo.brightcovePlayer.videoWidth() / 0.75) * 100 + 'vw';
       } else{
-        this.videoHeight = 'calc(' + this.$refs.brightcoveVideo.brightcovePlayer.videoHeight() / this.$refs.brightcoveVideo.brightcovePlayer.videoWidth() * 100 + 'vw + 252px)';
+        videoHeight.value = 'calc(' + this.$refs.brightcoveVideo.brightcovePlayer.videoHeight() / this.$refs.brightcoveVideo.brightcovePlayer.videoWidth() * 100 + 'vw + 252px)';
       }
-      
-    },
-    changeVolumeRate(value) {
+    };
+
+    const changeVolumeRate = (value) => {
+      //todo
       this.$refs.brightcoveVideo.setVolumeRate(value/100);
-    },
-    handleProgressLineClick(currentVideoTimeInSecs) {
+    };
+
+    const handleProgressLineClick = (currentVideoTimeInSecs) => {
+      //todo
       this.$refs.brightcoveVideo.updatePlayerTime(currentVideoTimeInSecs);
-    },
-    setPlaybackRate(value) {
+    };
+
+    const setPlaybackRate = (value) => {
+      // todo
       this.$refs.brightcoveVideo.setPlaybackRate(value);
-    },
-    closeRates() {
+    };
+
+    const closeRates = () => {
+      //todo
       this.$refs.playerFooter.closePlaybackRate();
       this.$refs.playerFooter.closeVolumeRateShow();
-    }
-  },
-  created() {
+    };
+
+    onMounted(() => {
+      window.addEventListener('resize', changeProgressBarLine);
+      window.bcController = {
+        togglePlay: () => {
+          play();
+          handleAppClick();
+        },
+        toggleFullScreenVideo: () => {
+          enterFullScreenVideo();
+        },
+        setPlaybackRate: (value = 1) => {
+          setPlaybackRate(value);
+        },
+        goToSlide: (slide = 0) => {
+          goToSlide({currentSlideIndex: slide, currentSubSlideIndex: undefined});
+        },
+        rewindVideo: (isForward = true) => {
+          rewindVideo(isForward);
+        },
+        toggleVideoPosition: () => {
+          toggleVideoPosition();
+        }
+      };
+    });
+
     const xhr = new XMLHttpRequest();
     xhr.open("GET", configJsonPath, false);
     xhr.send();
     if (xhr.readyState === 4 && xhr.status === 200) {
-      this.configuration = JSON.parse(xhr.response);
-      this.slidesViewer = this.configuration.slidesViewer;
-      this.showSubSlides = this.configuration.showSubSlides;
-      this.showBrightcovePlayer = this.configuration.showBrightcovePlayer;
-      this.subSlidesActive = this.configuration.subSlidesActive;
-      this.title = this.configuration.title;
-      if(!this.configuration.slidesViewer){
-        this.onlyPlayer = this.configuration.onlyPlayer;
-      }
-      if(!this.onlyPlayer){
-        this.slides = this.configuration.chapters.reduce((slides, chapter) => {
-          chapter.slides.forEach(slide => {
-            slide.active = false;
-            slide.videoID = chapter.videoID
-          });
-          return slides.concat(chapter.slides)
-        }, []);
+      store.commit('initState', JSON.parse(xhr.response));
+      // slidesViewer.value = configuration.slidesViewer;
+      // showSubSlides.value = configuration.showSubSlides;
+      // showBrightcovePlayer.value = configuration.showBrightcovePlayer;
+      // subSlidesActive.value = configuration.subSlidesActive;
+      // title.value = configuration.title;
+      // if(!configuration.slidesViewer){
+      //   onlyPlayer.value = configuration.onlyPlayer;
+      // }
+      // if(!onlyPlayer.value){
+      //   store.commit('setSlides', configuration.chapters.reduce((slides, chapter) => {
+      //     chapter.slides.forEach(slide => {
+      //       slide.active = false;
+      //       slide.videoID = chapter.videoID
+      //     });
+      //     return slides.concat(chapter.slides)
+      //   }, []));
 
-        const sharedSlideIndex = getUrlParameter("currentSlideIndex");
+      //   const sharedSlideIndex = getUrlParameter("currentSlideIndex");
 
-        if (sharedSlideIndex > 0 && sharedSlideIndex < this.slides.length){
-          this.currentSlideIndex = sharedSlideIndex;
-        } else{
-          this.currentSlideIndex = 0;
-        }
-        this.currentSlide = this.slides[this.currentSlideIndex];
-        this.currentSlide.active = true;
-        this.currentVideoTime = this.slides[this.currentSlideIndex].time;
-        this.isVideoBig = this.configuration.isVideoBig;
-        this.isSwitchDisabled = this.configuration.isSwitchDisabled;
-      } else{
-        this.currentSlide.videoID = this.configuration.chapters[0].videoID;
-        this.currentSlide.active = true;
-        this.currentVideoTime = 0;
-      }
+      //   if (sharedSlideIndex > 0 && sharedSlideIndex < slides.value.length){
+      //     currentSlideIndex.value = sharedSlideIndex;
+      //   } else{
+      //     currentSlideIndex.value = 0;
+      //   }
+      //   currentSlide.value = slides.value[currentSlideIndex.value];
+      //   currentSlide.value.active = true;
+      //   currentVideoTime.value = slides.value[currentSlideIndex.value].time;
+      //   isVideoBig.value = configuration.isVideoBig;
+      //   isSwitchDisabled.value = configuration.isSwitchDisabled;
+      // } else{
+      //   currentSlide.value.videoID = configuration.chapters[0].videoID;
+      //   currentSlide.value.active = true;
+      //   currentVideoTime.value = 0;
+      // }
       
       
-      this.currentVideo.accountCode = this.configuration.accountCode;
-      this.currentVideo.playerCode = this.configuration.playerCode;
+      // currentVideo.value.accountCode = configuration.accountCode;
+      // currentVideo.value.playerCode = configuration.playerCode;
     }
+
+    return {
+      isVideoBig,
+      shareMessage,
+      currentSlideIndex,
+      currentSubSlideIndex,
+      brightcoveVideo,
+      slidesViewer,
+      showSubSlides,
+      showBrightcovePlayer,
+      subSlidesActive,
+      onlyPlayer,
+      currentVideoTime,
+      currentSlide,
+      currentVideo,
+      title,
+      slides,
+      videoDuration,
+      videoDurationInMins,
+      isVideoReady,
+      isPlaying,
+      isFullScreen,
+      videoHeight,
+      isGoToPrevDisabled,
+      isGoToNextDisabled,
+      root,
+      slideTime,
+      getSource,
+      onTimeUpdate,
+      onEnded,
+      goToSlide,
+      enterFullScreenVideo,
+      desktopFullScreen,
+      mobileFullScreen,
+      addExitFullScreenListener,
+      addMobileExitFullScreenListener,
+      toggleVideoPosition,
+      share,
+      handleVideoCanPlay,
+      handleAppClick,
+      play,
+      rewindVideo,
+      changeProgressBarLine,
+      initBufferingWatcher,
+      calculateVideoHeight,
+      changeVolumeRate,
+      handleProgressLineClick,
+      setPlaybackRate,
+      closeRates,
+    };
   },
-  mounted() {
-    window.addEventListener('resize', this.changeProgressBarLine);
-    window.bcController = {
-      togglePlay: () => {
-        this.play();
-        this.handleAppClick();
-      },
-      toggleFullScreenVideo: () => {
-        this.enterFullScreenVideo();
-      },
-      setPlaybackRate: (value = 1) => {
-        this.setPlaybackRate(value);
-      },
-      goToSlide: (slide = 0) => {
-        this.goToSlide({currentSlideIndex: slide, currentSubSlideIndex: undefined});
-      },
-      rewindVideo: (isForward = true) => {
-        this.rewindVideo(isForward);
-      },
-      toggleVideoPosition: () => {
-        this.toggleVideoPosition();
-      }
-    }
-  }
-}
+});
 </script>
 
 <style scoped>
